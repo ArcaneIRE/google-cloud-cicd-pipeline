@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                background: #ff00cc;  /* fallback for old browsers */
+                background: -webkit-linear-gradient(to right, #333399, #ff00cc);  /* Chrome 10-25, Safari 5.1-6 */
+                background: linear-gradient(to left, #333399, #ff00cc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+                margin: 0;
+            }
+
+            .forms {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                margin: 0 auto;
+                max-width: 800px;
+            }
+        
+            #addStudentForm {
+                border: 1px solid #f1f1f1;
+                padding: 20px;
+            }
+
+            form input {
+                width: 100%;
+                margin: 8px 0;
+                box-sizing: border-box;
+            }
+            
+            form button {
+                background-color: #4CAF50;
+                color: white;
+                width: 50%;
+                padding: 12px 20px;
+                border: none;
+                border-radius: .3rem;
+                cursor: pointer;
+                width: 100%;
+            }
+
+            form button:hover {
+                opacity: 0.8;
+            }
+
+            form {
+                border-radius: 5px;
+                background-color: #f2f2f2;
+                padding: 20px;
+                border: 1px solid #f1f1f1;
+                width: 80%;
+                margin: auto;
+                margin-top: 10px;
+            }
+
+            form h2 {
+                color: #1a0530;
+                padding: 5px;
+                text-align: center;
+                transition: .7s ease all;
+            }
+
+            form h2:hover {
+                transform: rotate(360deg);
+                cursor: pointer;
+            }
+
+            h1 {
+                background: #1a0530;
+                background: -moz-linear-gradient(left, #1a0530 0%, #4d004d 100%);
+                text-align: center;
+                color: white;
+                padding: 5px;
+            }
+
+        </style>
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>PYTHON CRUD DATABASE</h1>
+    
+        <div class="forms">
+            <form action="/read" method="GET">
+                <h2>GET ALL STUDENTS</h2>
+                <button type="submit">SUBMIT</button>
+            </form>
+            <form action="/readStudent/" method="get">
+                <h2>GET STUDENT BY ID</h2>
+                <label for="studentId">Enter Student ID:</label>
+                <input type="text" id="studentId" name="id" required>
+                <br>
+                <button type="submit">SUBMIT</button>
+            </form>
+            <form id="addStudentForm" enctype="application/json" onsubmit="submitForm('write','addStudentForm'); return false;">
+                <h2>ADD STUDENT</h2>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br>
+            
+                <label for="course">Course:</label>
+                <input type="text" id="course" name="course" required><br>
+            
+                <label for="year">Year:</label>
+                <input type="text" id="year" name="year" required><br>
+            
+                <button type="submit">ADD</button>
+            </form>
+            
+            <form id="updateStudent" enctype="application/json" onsubmit="submitForm('update','updateStudent'); return false;">
+                <h2>UPDATE STUDENT</h2>
+                <label for="studentId">Enter Student ID:</label>
+                <input type="text" id="studentId" name="id" required>
+                <br>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br>
+            
+                <label for="course">Course:</label>
+                <input type="text" id="course" name="course" required><br>
+            
+                <label for="year">Year:</label>
+                <input type="text" id="year" name="year" required><br>
+            
+                <button type="submit">UPDATE</button>
+            </form>
+            <form action="/delete/" method="get">
+                <h2>DELETE STUDENT BY ID</h2>
+                <label for="studentId">Enter Student ID:</label>
+                <input type="text" id="studentId" name="id" required>
+                <br>
+                <button type="submit">SUBMIT</button>
+            </form>
+        </div>
+
+        <script>
+            function submitForm(path, id) {
+                event.preventDefault();
+
+                // Get form data
+                var formData = new FormData(document.getElementById(id));
+                
+
+                // Create JSON object from FormData
+                var jsonData = {};
+                formData.forEach(function(value, key){
+                    jsonData[key] = value;
+                });
+                
+                console.log('Form Data:', JSON.stringify(jsonData));
+
+
+                // Make a POST request using fetch API
+                fetch('/' + path, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(jsonData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response data as needed
+                    console.log(data);
+                    alert(data.msg);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error submitting the form.');
+                });
+            }
+        </script>
+    </body>
+</html>
