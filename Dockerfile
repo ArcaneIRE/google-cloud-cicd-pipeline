@@ -12,13 +12,13 @@ RUN pip install --trusted-host pypi.python.org -r requirements.txt
 COPY . /app
 
 # Set environment variables
-# ENV MYSQL_USER luke
-# ENV MYSQL_PASSWORD secret
-# ENV MYSQL_DB student
-# ENV MYSQL_HOST 34.125.170.207
-# ENV MYSQL_PORT 3306
-# ENV MYSQLCLIENT_CFLAGS "-I/usr/include/mariadb"
-# ENV MYSQLCLIENT_LDFLAGS "-L/usr/lib/"
+ENV MYSQL_USER david
+ENV MYSQL_PASSWORD secret
+ENV MYSQL_DB student
+ENV MYSQL_HOST 34.125.170.207
+ENV MYSQL_PORT 3306
+ENV MYSQLCLIENT_CFLAGS "-I/usr/include/mariadb"
+ENV MYSQLCLIENT_LDFLAGS "-L/usr/lib/"
 
 # Expose port 8080
 EXPOSE 8080
