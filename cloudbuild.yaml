@@ -14,7 +14,7 @@ steps:
       - "example"
       - "--image"
       - "gcr.io/$PROJECT_ID/example:$COMMIT_SHA"
-      - "--region"
-      - "REGION"
+      - "--git "
+      - "$LOCATION"
 images:
   - "gcr.io/$PROJECT_ID/example:$COMMIT_SHA"
